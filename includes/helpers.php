@@ -6,19 +6,28 @@ function search($search, $attribute) {
             "mysql:host=" . DBHOST . "; dbname=" . DBNAME . ";charset=utf8",
             DBUSER
         );
+
+        $db -> exec("SET block_encryption_mode = '".BLOCK_ENCRYPTION_MODE."'");
+        $db -> exec("SET @init_vector = '".INIT_VECTOR."'");
+        $db -> exec("SET @key_str = '".KEY_STR."'");
+
         if ("all" == $attribute){
-            $select_query = "SELECT * FROM website NATURAL JOIN user NATURAL JOIN account
-                             WHERE website_id LIKE \"%{$search}%\" OR website_name LIKE \"%{$search}%\"
-                             OR website_url LIKE \"%{search}%\" OR user_id LIKE \"%{search}%\"
-                             OR first_name LIKE \"%{search}%\" OR last_name LIKE \"%{search}%\"
-                             OR email LIKE \"%{search}%\" OR account_id LIKE \"%{search}%\"
-                             OR username LIKE \"%{search}%\" OR password LIKE \"%{search}%\"
-                             OR creation_time LIKE \"%{search}%\" OR comment LIKE \"%{search}%\"";
+            $select_query = "SELECT *,CAST(AES_DECRYPT(password, '".KEY_STR."', '".INIT_VECTOR."') AS CHAR)
+                                FROM website INNER JOIN registersfor ON (website.website_id = registersfor.website_id)
+                                INNER JOIN user ON (user.user_id = registersfor.user_id)
+                                WHERE website.website_id LIKE \"%{$search}%\" OR website_name LIKE \"%{$search}%\"
+                                OR website_url LIKE \"%{$search}%\"  OR user.user_id LIKE \"%{$search}%\"
+                                OR first_name LIKE \"%{$search}%\" OR last_name LIKE \"%{$search}%\"
+                                OR email LIKE \"%{$search}%\" OR username LIKE \"%{$search}%\"
+                                OR password LIKE \"%{$search}%\" OR creation_time LIKE \"%{$search}%\"
+                                OR comment LIKE \"%{$search}%\"";
             $statement = $db -> prepare($select_query);
             $statement -> execute();
         }else{
-            $select_query = "SELECT * FROM website NATURAL JOIN user NATURAL JOIN account
-                             WHERE {$attribute} LIKE \"%{$search}%\"";
+            $select_query = "SELECT *,CAST(AES_DECRYPT(password, '".KEY_STR."', '".INIT_VECTOR."') AS CHAR) FROM website
+                                INNER JOIN registersfor ON (website.website_id = registersfor.website_id)
+                                INNER JOIN user ON (user.user_id = registersfor.user_id)
+                                WHERE {$attribute} LIKE \"%{$search}%\"";
             $statement = $db -> prepare($select_query);
             $statement -> execute();
         }
@@ -29,7 +38,6 @@ function search($search, $attribute) {
             echo "      <table>\n";
             echo "        <thead>\n";
             echo "          <tr>\n";
-            echo "            <th>Account ID</th>\n";
             echo "            <th>Website ID</th>\n";
             echo "            <th>User ID</th>\n";
             echo "            <th>Website Name</th>\n";
@@ -48,18 +56,17 @@ function search($search, $attribute) {
             // Populate the table with data coming from the database...
             foreach ($db ->query($select_query) as $row) {
                 echo "          <tr>\n";
-                echo "            <td>" . htmlspecialchars($row[7]) . "</td>\n";
                 echo "            <td>" . htmlspecialchars($row[0]) . "</td>\n";
+                echo "            <td>" . htmlspecialchars($row[9]) . "</td>\n";
                 echo "            <td>" . htmlspecialchars($row[1]) . "</td>\n";
                 echo "            <td>" . htmlspecialchars($row[2]) . "</td>\n";
-                echo "            <td>" . htmlspecialchars($row[3]) . "</td>\n";
-                echo "            <td>" . htmlspecialchars($row[4]) . "</td>\n";
-                echo "            <td>" . htmlspecialchars($row[5]) . "</td>\n";
-                echo "            <td>" . htmlspecialchars($row[6]) . "</td>\n";
-                echo "            <td>" . htmlspecialchars($row[8]) . "</td>\n";
-                echo "            <td>" . htmlspecialchars($row[9]) . "</td>\n";
                 echo "            <td>" . htmlspecialchars($row[10]) . "</td>\n";
                 echo "            <td>" . htmlspecialchars($row[11]) . "</td>\n";
+                echo "            <td>" . htmlspecialchars($row[12]) . "</td>\n";
+                echo "            <td>" . htmlspecialchars($row[5]) . "</td>\n";
+                echo "            <td>" . htmlspecialchars($row[13]) . "</td>\n";
+                echo "            <td>" . htmlspecialchars($row[7]) . "</td>\n";
+                echo "            <td>" . htmlspecialchars($row[8]) . "</td>\n";
                 echo "          </tr>\n";
             }
 
@@ -71,6 +78,29 @@ function search($search, $attribute) {
         echo '<p id="error">' . $e -> getMessage() . '</p>' . "\n";
         echo "<p>There are a few reasons for this. Perhaps the database doesn’t exist or wasn’t mounted. Does the volume/drive containing the database have read and write permissions?</p>\n";
         echo '<p>Click <a href="./">here</a> to go back.</p>';
+
+        exit;
+    }
+}
+
+function update($current_attribute, $new_component, $query_attribute, $pattern) {
+    try {
+        $db = new PDO(
+            "mysql:host=" . DBHOST . "; dbname=" . DBNAME . ";charset=utf8",
+            DBUSER,
+        );
+        try{
+        $db -> query("UPDATE website
+                                INNER JOIN registersfor ON (website.website_id = registersfor.website_id)
+                                INNER JOIN user ON (user.user_id = registersfor.user_id)
+                                SET {$current_attribute}=\"{$new_component}\" WHERE {$query_attribute}=\"{$pattern}\"");
+        }catch( Exception $e){
+            return -1;
+            exit;
+        }
+    } catch( PDOException $e ) {
+        echo '<p>The following message was generated by function <code>update</code>:</p>' . "\n";
+        echo '<p id="error">' . $e -> getMessage() . '</p>' . "\n";
 
         exit;
     }

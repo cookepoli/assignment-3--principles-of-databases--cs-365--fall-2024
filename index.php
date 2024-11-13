@@ -38,6 +38,9 @@ if ($option != null) {
             if ((0 == $_POST['new-attribute']) && ("" == $_POST['pattern'])) {
                 echo '<div id="error">One or both fields were empty, ' .
                     'but both must be filled out. Please try again.</div>' . "\n";
+            } if ((update($_POST['current-attribute'], $_POST['new-attribute'],
+            $_POST['query-attribute'], $_POST['pattern']) == -1)){
+                echo '<div id="error">Duplicate primary key.</div>' . "\n";
             } else {
                 update($_POST['current-attribute'], $_POST['new-attribute'],
                     $_POST['query-attribute'], $_POST['pattern']);
@@ -76,9 +79,8 @@ if ($option != null) {
     <legend>Search</legend>
     SELECT FROM * WHERE
     <select name="attribute" id="attribute">
-        <option>account_id</option>
-        <option>website_id</option>
-        <option>user_id</option>
+        <option>website.website_id</option>
+        <option>user.user_id</option>
         <option>website_name</option>
         <option>website_url</option>
         <option>first_name</option>
@@ -96,5 +98,42 @@ if ($option != null) {
     <input type="hidden" name="submitted" value="1">
      (Case Sensitive)
     <p><input type="submit" value="search"></p>
+  </fieldset>
+</form>
+
+<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+  <fieldset>
+    <legend>Update</legend>
+    UPDATE relation SET
+    <select name="current-attribute" id="current-attribute">
+        <option>website.website_id</option>
+        <option>user.user_id</option>
+        <option>website_name</option>
+        <option>website_url</option>
+        <option>first_name</option>
+        <option>last_name</option>
+        <option>email</option>
+        <option>username</option>
+        <option>password</option>
+        <option>creation_time</option>
+        <option>comment</option>
+    </select>
+    = <input type="text" name="new-attribute" required> WHERE
+    <select name="query-attribute" id="query-attribute">
+        <option>website.website_id</option>
+        <option>user.user_id</option>
+        <option>website_name</option>
+        <option>website_url</option>
+        <option>first_name</option>
+        <option>last_name</option>
+        <option>email</option>
+        <option>username</option>
+        <option>password</option>
+        <option>creation_time</option>
+        <option>comment</option>
+    </select>
+    = <input type="text" name="pattern" required>
+    <input type="hidden" name="submitted" value="2">
+    <p><input type="submit" value="update"></p>
   </fieldset>
 </form>
