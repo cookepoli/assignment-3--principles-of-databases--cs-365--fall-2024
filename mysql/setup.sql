@@ -1,14 +1,18 @@
+\W
+
 DROP DATABASE IF EXISTS student_passwords;
 
 CREATE DATABASE `student_passwords` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;
 
 USE student_passwords;
 
+DROP USER IF EXISTS 'passwords_user'@'localhost';
+
 CREATE USER 'passwords_user'@'localhost';
 GRANT ALL PRIVILEGES ON student_passwords.* to 'passwords_user'@'localhost';
 
 
-SET @block_encryption_mode = 'aes-256-cbc';
+SET block_encryption_mode = 'aes-256-cbc';
 SET @key_str = UNHEX(SHA2('my secret passphrase', 256));
 SET @init_vector = RANDOM_BYTES(16);
 
@@ -70,7 +74,7 @@ VALUES
 
 INSERT INTO account
 VALUES
-  (0,1,1,  "cookepoli",AES_ENCRYPT("iloveuhart", @key_str, @init_vector), '2019-09-01 12:00:00', "Use this for school things."),
+  (0,1,1, "cookepoli",AES_ENCRYPT("iloveuhart", @key_str, @init_vector), '2019-09-01 12:00:00', "Use this for school things."),
   (0,2,2,"cookepoli",AES_ENCRYPT("iloveuhart", @key_str, @init_vector), '2019-09-01 12:00:00', "School email."),
   (0,3,3, "jsmith17",AES_ENCRYPT("password", @key_str, @init_vector), '2020-08-21 13:21:56', "Personal website."),
   (0,4,4,"johnnys", AES_ENCRYPT("aBcD1234", @key_str, @init_vector), '2010-02-15 08:52:34', "Personal email."),
@@ -80,4 +84,3 @@ VALUES
   (0,8,8, "lh44",AES_ENCRYPT("fastdriver1985", @key_str, @init_vector), '2022-12-11 03:40:21', "Got to drive fast."),
   (0,9,9, "willlewisceo",AES_ENCRYPT("wapo2133124", @key_str, @init_vector), '2023-11-05 06:57:00', "The only news outlet."),
   (0,10,10,"tsmith18",AES_ENCRYPT("tsmithm4th", @key_str, @init_vector), '2024-10-01 11:57:56',"Math help website.");
-
