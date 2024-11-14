@@ -65,11 +65,9 @@ VALUES
 INSERT INTO user
 VALUES
   (0, "Alex", "Cooke-Politikos", "cookepoli@hartford.edu"),
-  (0, "Alex", "Cooke-Politikos",  "cookepoli@hartford.edu"),
   (0, "John", "Smith",  "johnnys@gmail.com"),
   (0, "John", "Smith",  "johnnys@gmail.com"),
   (0, "Dylan", "Falco",  "dylan.falco@msn.net"),
-  (0, "Alex", "Cooke-Politikos",  "cookepoli@hartford.edu"),
   (0, "George", "Washington",  "george.washington@uswh.gov"),
   (0, "Lewis", "Hamilton",  "7timewdc@gmail.com"),
   (0, "Will", "Lewis",  "will.lewis@washingtonpost.com"),
@@ -78,12 +76,12 @@ VALUES
 INSERT INTO registersfor
 VALUES
   (1,1, "cookepoli", AES_ENCRYPT("iloveuhart", @key_str, @init_vector), '2019-09-01 12:00:00', "Use this for school things."),
-  (2,2,"cookepoli", AES_ENCRYPT("iloveuhart", @key_str, @init_vector), '2019-09-01 12:00:00', "School email."),
-  (3,3, "jsmith17", AES_ENCRYPT("password", @key_str, @init_vector), '2020-08-21 13:21:56', "Personal website."),
-  (4,4,"johnnys", AES_ENCRYPT("aBcD1234", @key_str, @init_vector), '2010-02-15 08:52:34', "Personal email."),
-  (5,5,"dfalcon72", AES_ENCRYPT("iL0V3Uh4r7", @key_str, @init_vector), '2017-05-27 18:42:30', "Used for gaming."),
-  (6,6, "cookiepolitics", AES_ENCRYPT("physics2024", @key_str, @init_vector), '2021-07-17 21:00:17', "Game library."),
-  (7,7,"gwashington", AES_ENCRYPT("f1rs7pr3s1d3n71776@", @key_str, @init_vector), '1776-07-04 07:00:00', "Deliver groceries to the White House."),
-  (8,8, "lh44", AES_ENCRYPT("fastdriver1985", @key_str, @init_vector), '2022-12-11 03:40:21', "Got to drive fast."),
-  (9,9, "willlewisceo", AES_ENCRYPT("wapo2133124", @key_str, @init_vector), '2023-11-05 06:57:00', "The only news outlet."),
-  (10,10,"tsmith18", AES_ENCRYPT("tsmithm4th", @key_str, @init_vector), '2024-10-01 11:57:56', "Math help website.");
+  (2,1,"cookepoli", AES_ENCRYPT("iloveuhart", @key_str, @init_vector), '2019-09-01 12:00:00', "School email."),
+  (3,2, "jsmith17", AES_ENCRYPT("password", @key_str, @init_vector), '2020-08-21 13:21:56', "Personal website."),
+  (4,3,"johnnys", AES_ENCRYPT("aBcD1234", @key_str, @init_vector), '2010-02-15 08:52:34', "Personal email."),
+  (5,4,"dfalcon72", AES_ENCRYPT("iL0V3Uh4r7", @key_str, @init_vector), '2017-05-27 18:42:30', "Used for gaming."),
+  (6,1, "cookiepolitics", AES_ENCRYPT("physics2024", @key_str, @init_vector), '2021-07-17 21:00:17', "Game library."),
+  (7,5,"gwashington", AES_ENCRYPT("f1rs7pr3s1d3n71776@", @key_str, @init_vector), '1776-07-04 07:00:00', "Deliver groceries to the White House."),
+  (8,6, "lh44", AES_ENCRYPT("fastdriver1985", @key_str, @init_vector), '2022-12-11 03:40:21', "Got to drive fast."),
+  (9,7, "willlewisceo", AES_ENCRYPT("wapo2133124", @key_str, @init_vector), '2023-11-05 06:57:00', "The only news outlet."),
+  (10,8,"tsmith18", AES_ENCRYPT("tsmithm4th", @key_str, @init_vector), '2024-10-01 11:57:56', "Math help website.");
