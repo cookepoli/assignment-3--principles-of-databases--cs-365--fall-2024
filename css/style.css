@@ -1,0 +1,18 @@
+:root {
+  --primary-color: #fff;
+  --background-color: #191919;
+  --border-color: #666;
+  --background-color--button: #f00;
+  --legend-content-color: #fad;
+  --notification-banner-background-color: #ffc0cb;
+  --drop-down-menu-background-color: #999;
+  --table-row-hover-background-color: #333;
+  --color-six: #4c4c4c;
+  --row-striping-background-color--odd: #262626;
+  --row-striping-background-color--even: #1e1e1e;
+}
+body {
+  background-color: var(--background-color);
+  color: var(--primary-color);
+  margin-bottom: 100px;
+}

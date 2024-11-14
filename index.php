@@ -39,7 +39,7 @@ if ($option != null) {
                 echo '<div id="error">One or both fields were empty, ' .
                     'but both must be filled out. Please try again.</div>' . "\n";
             } if ((update($_POST['current-attribute'], $_POST['new-attribute'],
-            $_POST['query-attribute'], $_POST['pattern']) == -1)){
+                    $_POST['query-attribute'], $_POST['pattern']) == -1)){
                 echo '<div id="error">Duplicate primary key.</div>' . "\n";
             } else {
                 update($_POST['current-attribute'], $_POST['new-attribute'],
@@ -135,5 +135,44 @@ if ($option != null) {
     = <input type="text" name="pattern" required>
     <input type="hidden" name="submitted" value="2">
     <p><input type="submit" value="update"></p>
+  </fieldset>
+</form>
+
+<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+  <fieldset>
+    <legend>Insert</legend>
+    INSERT INTO relation VALUES ( <input type="text" name="website-name" placeholder="website_name" required>,
+                                    <input type="text" name="website-URL" placeholder="website_url" required>,
+                                    <input type="text" name="first-name" placeholder="first_name" required>,
+                                    <input type="text" name="last-name" placeholder="last_name" required>,
+                                    <input type="text" name="email" placeholder="email" required>,
+                                    <input type="text" name="username" placeholder="username" required>,
+                                    <input type="text" name="password" placeholder="password" required>,
+                                    <textarea id="comment" name="comment" placeholder="comment" required></textarea>);
+    <input type="hidden" name="submitted" value="3">
+    <p><input type="submit" value="insert"></p>
+  </fieldset>
+</form>
+
+<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+  <fieldset>
+    <legend>Delete</legend>
+    DELETE FROM relation WHERE
+    <select name="current-attribute" id="current-attribute">
+        <option>website.website_id</option>
+        <option>user.user_id</option>
+        <option>website_name</option>
+        <option>website_url</option>
+        <option>first_name</option>
+        <option>last_name</option>
+        <option>email</option>
+        <option>username</option>
+        <option>password</option>
+        <option>creation_time</option>
+        <option>comment</option>
+    </select>
+    = <input type="text" name="pattern" required>
+      <input type="hidden" name="submitted" value="4">
+    <p><input type="submit" value="delete"></p>
   </fieldset>
 </form>
