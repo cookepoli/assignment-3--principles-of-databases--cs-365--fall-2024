@@ -49,13 +49,17 @@ if ($option != null) {
             break;
 
         case INSERT:
-            if (("" == $_POST['artist-id']) || ("" == $_POST['artist-name'])) {
+            if (("" == $_POST['website-name']) || ("" == $_POST['website-url'])
+                    || ("" == $_POST['first-name']) || ("" == $_POST['last-name'])
+                    || ("" == $_POST['email']) || ("" == $_POST['username'])
+                    || ("" == $_POST['password']) || ("" == $_POST['comment'])) {
                 echo '<div id="error">At least one field in your insert request ' .
                      'is empty. Please try again.</div>' . "\n";
             } else {
-                insert($_POST['artist-id'],$_POST['artist-name']);
+                insert($_POST['website-name'],$_POST['website-url'],$_POST['first-name'],
+                        $_POST['last-name'],$_POST['email'],$_POST['username'],
+                        $_POST['password'],$_POST['comment']);
             }
-
             break;
 
         case DELETE:
@@ -142,7 +146,7 @@ if ($option != null) {
   <fieldset>
     <legend>Insert</legend>
     INSERT INTO relation VALUES ( <input type="text" name="website-name" placeholder="website_name" required>,
-                                    <input type="text" name="website-URL" placeholder="website_url" required>,
+                                    <input type="text" name="website-url" placeholder="website_url" required>,
                                     <input type="text" name="first-name" placeholder="first_name" required>,
                                     <input type="text" name="last-name" placeholder="last_name" required>,
                                     <input type="text" name="email" placeholder="email" required>,
