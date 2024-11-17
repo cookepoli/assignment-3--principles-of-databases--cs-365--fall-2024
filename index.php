@@ -136,7 +136,7 @@ if ($option != null) {
         <option>creation_time</option>
         <option>comment</option>
     </select>
-    = <input type="text" name="pattern" required>
+    = <input type="text" name="pattern" required>;
     <input type="hidden" name="submitted" value="2">
     <p><input type="submit" value="update"></p>
   </fieldset>
@@ -145,7 +145,8 @@ if ($option != null) {
 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
   <fieldset>
     <legend>Insert</legend>
-    INSERT INTO relation VALUES ( <input type="text" name="website-name" placeholder="website_name" required>,
+    INSERT INTO relation VALUES <br> <br>
+    ( <input type="text" name="website-name" placeholder="website_name" required>,
                                     <input type="text" name="website-url" placeholder="website_url" required>,
                                     <input type="text" name="first-name" placeholder="first_name" required>,
                                     <input type="text" name="last-name" placeholder="last_name" required>,
@@ -175,7 +176,7 @@ if ($option != null) {
         <option>creation_time</option>
         <option>comment</option>
     </select>
-    = <input type="text" name="pattern" required>
+    = <input type="text" name="pattern" required>;
       <input type="hidden" name="submitted" value="4">
     <p><input type="submit" value="delete"></p>
   </fieldset>
