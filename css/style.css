@@ -3,7 +3,7 @@
   --background-color: #191919;
   --border-color: #666;
   --background-color--button: #f00;
-  --legend-content-color: #fad;
+  --legend-content-color: #1979c2;
   --notification-banner-background-color: #ffc0cb;
   --drop-down-menu-background-color: #999;
   --table-row-hover-background-color: #333;
@@ -38,13 +38,15 @@ th {
 
 table {
   margin: 50px auto;
-  border-collapse: collapse;
+  border-collapse: separate;
 }
 
 table td,
 table th {
   padding: 10px;
   font-size: 1vw;
+  overflow: hidden;
+  word-wrap: break-word;
 }
 
 table thead tr th:nth-child(5) {
@@ -105,7 +107,7 @@ form textarea {
   background-color: var(--background-color);
   color: var(--primary-color);
   vertical-align: middle;
-  width: 7rem;
+  width: 9rem;
   height: 1rem;
 }
 
