@@ -1,5 +1,3 @@
-\W
-
 DROP DATABASE IF EXISTS student_passwords;
 
 CREATE DATABASE `student_passwords` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;

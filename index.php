@@ -90,12 +90,11 @@ if ($option != null) {
         <option value = "username">Username</option>
         <option value = "password">Password</option>
         <option value = "creation_time">Time of Creation</option>
-        <option value = "option">Comment</option>
+        <option value = "comment">Comment</option>
         <option value = "all">Full Database</option>
     </select>
     LIKE
     <input type="text" name="search" autofocus required>
-    ;
     <input type="hidden" name="submitted" value="1">
      (Case Sensitive)
     <p><input type="submit" value="search"></p>
@@ -115,7 +114,7 @@ if ($option != null) {
         <option value = "username">Username</option>
         <option value = "password">Password</option>
         <option value = "creation_time">Time of Creation</option>
-        <option value = "option">Comment</option>
+        <option value = "comment">Comment</option>
         <option value = "all">Full Database</option>
     </select>
     = <input type="text" name="new-attribute" required> WHERE
@@ -130,10 +129,10 @@ if ($option != null) {
         <option value = "username">Username</option>
         <option value = "password">Password</option>
         <option value = "creation_time">Time of Creation</option>
-        <option value = "option">Comment</option>
+        <option value = "comment">Comment</option>
         <option value = "all">Full Database</option>
     </select>
-    = <input type="text" name="pattern" required>;
+    = <input type="text" name="pattern" required>
     <input type="hidden" name="submitted" value="2">
     <p><input type="submit" value="update"></p>
   </fieldset>
@@ -152,7 +151,7 @@ if ($option != null) {
         <input type="text" name="username" placeholder="Username" required>,
         <input type="text" name="password" placeholder="Password" required>,
         <textarea id="comment" name="comment" placeholder="Comment" required></textarea>
-    );
+    )
     <input type="hidden" name="submitted" value="3">
     <p><input type="submit" value="insert"></p>
   </fieldset>
@@ -173,10 +172,10 @@ if ($option != null) {
         <option value = "username">Username</option>
         <option value = "password">Password</option>
         <option value = "creation_time">Time of Creation</option>
-        <option value = "option">Comment</option>
+        <option value = "comment">Comment</option>
         <option value = "all">Full Database</option>
     </select>
-    = <input type="text" name="pattern" required>;
+    = <input type="text" name="pattern" required>
       <input type="hidden" name="submitted" value="4">
     <p><input type="submit" value="delete"></p>
   </fieldset>
